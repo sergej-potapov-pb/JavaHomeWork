@@ -24,7 +24,6 @@ public class Reader {
     private String faculty;
     private String dateBirth;
     private String telephone;
-    //private int bookCount;
 
     public String getFullName() {
         return fullName;
@@ -77,7 +76,6 @@ public class Reader {
 
     public void takeBook(String ... titles) {
         if (titles.length != 0){
-            //bookCount = titles.length;
             System.out.print(fullName+" взял книги : ");
 
             for (String rTitles : titles) {
@@ -90,7 +88,6 @@ public class Reader {
 
     public void takeBook(Book... books) {
         if (books.length != 0){
-            //bookCount = books.length;
             System.out.print(fullName+" взял книги : ");
 
             for (Book rBook: books) {
@@ -108,7 +105,6 @@ public class Reader {
 
     public void returnBook(String ... titles) {
             if (titles.length != 0){
-                //bookCount = titles.length;
                 System.out.print(fullName+" вернул книги : ");
 
                 for (String rTitles : titles) {
@@ -122,7 +118,6 @@ public class Reader {
 
     public void returnBook(Book... books) {
             if (books.length != 0){
-                //bookCount = books.length;
                 System.out.print(fullName+" вернул книги : ");
 
                 for (Book rBook: books) {
