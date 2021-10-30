@@ -86,6 +86,10 @@ public class Reader {
         }
     }
 
+/*
+ * Принимает переменный список взятых книг
+ * @param объект книга
+ */
     public void takeBook(Book... books) {
         if (books.length != 0){
             System.out.print(fullName+" взял книги : ");
@@ -111,11 +115,15 @@ public class Reader {
                     System.out.print( rTitles+", ");
                 }
                 System.out.println("\b\b");
-                takeBook(titles.length);
+                returnBook(titles.length);
             }
 
     }
 
+    /*
+     * Принимает переменный список возвращаемых книг
+     * @param объект книга
+     */
     public void returnBook(Book... books) {
             if (books.length != 0){
                 System.out.print(fullName+" вернул книги : ");
@@ -124,7 +132,7 @@ public class Reader {
                     System.out.print( rBook.getTitle()+"("+ rBook.getAuthor()+", "+ rBook.getYearPublishing()+"г), ");
                 }
                 System.out.println("\b\b");
-                takeBook(books.length);
+                returnBook(books.length);
             }
 
     }
