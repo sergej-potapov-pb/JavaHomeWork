@@ -19,6 +19,13 @@ public class Reader {
         this.telephone = telephone;
     }
 
+    private String fullName;
+    private String numberLibraryCard;
+    private String faculty;
+    private String dateBirth;
+    private String telephone;
+    //private int bookCount;
+
     public String getFullName() {
         return fullName;
     }
@@ -59,77 +66,70 @@ public class Reader {
         this.telephone = telephone;
     }
 
-    private String fullName;
-    private String numberLibraryCard;
-    private String faculty;
-    private String dateBirth;
-    private String telephone;
-    private int bookCount;
-
     String getInfo() {
         return "ФИО: " + fullName + ", номер билета: " + numberLibraryCard +
                 ", факультет: " + faculty + ", дата рождения: " + dateBirth + ", телефон: " + telephone;
     }
 
-    public void takeBook() {
+    public void takeBook(int bookCount) {
         System.out.println(fullName + " взял " + bookCount + " книги");
     }
 
     public void takeBook(String ... titles) {
         if (titles.length != 0){
-            bookCount = titles.length;
+            //bookCount = titles.length;
             System.out.print(fullName+" взял книги : ");
 
             for (String rTitles : titles) {
                 System.out.print( rTitles+", ");
             }
             System.out.println("\b\b");
-            takeBook();
+            takeBook(titles.length);
         }
     }
 
     public void takeBook(Book... books) {
         if (books.length != 0){
-            bookCount = books.length;
+            //bookCount = books.length;
             System.out.print(fullName+" взял книги : ");
 
             for (Book rBook: books) {
                 System.out.print( rBook.getTitle()+"("+ rBook.getAuthor()+", "+ rBook.getYearPublishing()+"г), ");
             }
             System.out.println("\b\b");
-            takeBook();
+            takeBook(books.length);
         }
     }
 
 
-    public void returnBook() {
+    public void returnBook(int bookCount) {
         System.out.println(fullName + " вернул " + bookCount + " книги");
     }
 
     public void returnBook(String ... titles) {
             if (titles.length != 0){
-                bookCount = titles.length;
+                //bookCount = titles.length;
                 System.out.print(fullName+" вернул книги : ");
 
                 for (String rTitles : titles) {
                     System.out.print( rTitles+", ");
                 }
                 System.out.println("\b\b");
-                takeBook();
+                takeBook(titles.length);
             }
 
     }
 
     public void returnBook(Book... books) {
             if (books.length != 0){
-                bookCount = books.length;
+                //bookCount = books.length;
                 System.out.print(fullName+" вернул книги : ");
 
                 for (Book rBook: books) {
                     System.out.print( rBook.getTitle()+"("+ rBook.getAuthor()+", "+ rBook.getYearPublishing()+"г), ");
                 }
                 System.out.println("\b\b");
-                takeBook();
+                takeBook(books.length);
             }
 
     }
