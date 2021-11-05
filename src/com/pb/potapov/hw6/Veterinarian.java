@@ -24,9 +24,9 @@ public class Veterinarian {
             animal.sleep();
         } else {
             System.out.println("животное здорово");
-        }
-        if (animal.isPower()) {
-            System.out.println("может перевозить грузы");
+            if (animal.isPower()) {
+                System.out.println("может перевозить грузы");
+            }
         }
 
 
