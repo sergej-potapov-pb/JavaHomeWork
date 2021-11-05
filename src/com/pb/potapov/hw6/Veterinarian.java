@@ -15,16 +15,18 @@ public class Veterinarian {
         this.name = name;
     }
 
-    public void treatAnimal(Animal animal){
+    public void treatAnimal(Animal animal) {
         // System.out.println("Прием у ветеринара "+name);
-        System.out.println("ест "+ animal.getFood());
-        System.out.println("живет "+ animal.getLocation());
+        System.out.println("ест " + animal.getFood());
+        System.out.println("живет " + animal.getLocation());
         if (animal.isIll()) {
             System.out.println("животное болеет");
             animal.sleep();
         } else {
             System.out.println("животное здорово");
-
+        }
+        if (animal.isPower()) {
+            System.out.println("может перевозить грузы");
         }
 
 
