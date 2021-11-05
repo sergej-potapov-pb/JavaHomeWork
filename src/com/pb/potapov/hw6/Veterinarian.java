@@ -16,7 +16,7 @@ public class Veterinarian {
     }
 
     public void treatAnimal(Animal animal) {
-        // System.out.println("Прием у ветеринара "+name);
+
         System.out.println("ест " + animal.getFood());
         System.out.println("живет " + animal.getLocation());
         if (animal.isIll()) {
