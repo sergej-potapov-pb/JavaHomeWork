@@ -20,6 +20,11 @@ public class Horse extends Animal{
 
     public void setRunsFast(boolean runsFast) {
         this.runsFast = runsFast;
+        if (this.runsFast){
+            System.out.println("очень быстро бегает");
+        } else {
+            System.out.println("очень плохо бегает");
+        }
     }
 
     @Override

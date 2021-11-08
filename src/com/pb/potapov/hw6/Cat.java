@@ -20,6 +20,11 @@ public class Cat extends Animal{
 
     public void setSeesInTheDark(boolean seesInTheDark) {
         this.seesInTheDark = seesInTheDark;
+        if (this.seesInTheDark){
+            System.out.println("отлично видит в темноте");
+        } else {
+            System.out.println("плохо видит в темноте");
+        }
     }
 
 

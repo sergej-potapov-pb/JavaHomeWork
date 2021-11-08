@@ -20,6 +20,11 @@ public class Dog extends Animal{
 
     public void setGoodScent(boolean goodScent) {
         this.goodScent = goodScent;
+        if (this.goodScent) {
+            System.out.println("имеет острый нюх");
+        } else {
+            System.out.println("имеет проблемы с нюхом");
+        }
     }
 
     @Override

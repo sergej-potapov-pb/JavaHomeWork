@@ -22,10 +22,31 @@ public class Veterinarian {
         if (animal.isIll()) {
             System.out.println("животное болеет");
             animal.sleep();
+            if (animal instanceof Dog) {
+                Dog dog = (Dog) animal;
+                dog.setGoodScent(false);
+            } else if (animal instanceof Cat) {
+                Cat cat = (Cat) animal;
+                cat.setSeesInTheDark(false);
+            } else if (animal instanceof Horse) {
+                Horse horse = (Horse) animal;
+                horse.setRunsFast(false);
+            }
+
         } else {
             System.out.println("животное здорово");
             if (animal.isPower()) {
                 System.out.println("может перевозить грузы");
+            }
+            if (animal instanceof Dog) {
+                Dog dog = (Dog) animal;
+                dog.setGoodScent(true);
+            } else if (animal instanceof Cat) {
+                Cat cat = (Cat) animal;
+                cat.setSeesInTheDark(true);
+            } else if (animal instanceof Horse) {
+                Horse horse = (Horse) animal;
+                horse.setRunsFast(true);
             }
         }
 

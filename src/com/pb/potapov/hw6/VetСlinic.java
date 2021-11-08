@@ -1,9 +1,6 @@
 package com.pb.potapov.hw6;
 
-import myTest.Computer;
-
 import java.lang.reflect.Constructor;
-
 
 public class VetСlinic {
     public static void main(String[] args) throws Exception {
@@ -64,4 +61,6 @@ public class VetСlinic {
 
 
     }
+
+
 }
