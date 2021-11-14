@@ -5,11 +5,13 @@ import java.util.Scanner;
 public class Calculator {
     public static void main(String[] args) {
         int a, b;
-        int res = 0;
+        double res = 0;
         String sign;
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Каркулятор\nВычисление арифметических функций : + - * /\nМежду двумя целыми числами\n");
+
+
         System.out.print("Введите первое число ->");
         a = scan.nextInt();
         System.out.print("Введите второе число ->");
@@ -29,7 +31,7 @@ public class Calculator {
                 break;
             case "/":
                 if (b != 0) {
-                    res = a / b;
+                    res = a / (double)b;
                 } else
                     System.out.println("Ошибка!\nВы задали деление на 0");
                 break;
