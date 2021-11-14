@@ -2,48 +2,25 @@ package com.pb.potapov.hw7;
 
 public enum Size {
 
-    XXS, XS, S, M, L;
-//    XXS("Детский размер"),
-//    XS("Взрослый размер"),
-//    S("Взрослый размер"),
-//    M("Взрослый размер"),
-//    L("Взрослый размер");
+    XXS("Детский размер",32),
+    XS("Взрослый размер",34),
+    S("Взрослый размер",36),
+    M("Взрослый размер",38),
+    L("Взрослый размер",40);
 
-    private String size;
     private String description;
-    private String euroSize;
+    private int euroSize;
 
-    Size(String size) {
-        this.size = size;
-        this.description = this.getDescription();
-        this.euroSize = this.getEuroSize();
+    Size(String description, int euroSize) {
+        this.description = description;
+        this.euroSize = euroSize;
     }
 
     public String getDescription() {
-        switch (size) {
-            case XXS:
-                return "Детский размер";
-            case XS:
-            case S:
-            case M:
-            case L:
-                return "Взрослый размер";
-        }
-
+        return description;
     }
 
-    public String getEuroSize() {
-        switch (size) {
-            case XXS:
-                return "32";
-            case XS:
-                return "34";
-            case S:
-                return "36";
-            case M:
-                return "38";
-            case L:
-                return "40";
-        }
+    public int getEuroSize() {
+        return euroSize;
     }
 }
