@@ -1,30 +1,44 @@
 package com.pb.potapov.hw9;
 
-import com.pb.potapov.hw7.Pants;
-
-import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Random;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class FileNumbers {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Path fileSrc = Paths.get("numbers.txt");
         Path fileOdd = Paths.get("odd-numbers.txt");
 
-        System.out.println("Генерация содержимого в файл \"" + fileSrc.toAbsolutePath() + "\"");
+        // настройка логирования ( вывод сообщенией на консоль и в файл)
+        Logger logger = Logger.getLogger( FileNumbers.class.getName());
+        FileHandler logFile = new FileHandler("numbers.log");
+        logger.addHandler(logFile);
+        SimpleFormatter formatter = new SimpleFormatter();
+        logFile.setFormatter(formatter);
 
-        createNumbersFile( fileSrc);
+        //System.out.println("Генерация содержимого в файл \"" + fileSrc.toAbsolutePath() + "\"");
+        logger.log(Level.INFO, "Генерация содержимого в файл \"" + fileSrc.toAbsolutePath() + "\"");
 
-        System.out.println("Файл \"" + fileSrc.toAbsolutePath() + "\"  записан!");
+        createNumbersFile( fileSrc);              // создание number.txt
 
-        System.out.println("Чтение и обработка файла \"" + fileSrc.toAbsolutePath() + "\":");
+        //System.out.println("Файл \"" + fileSrc.toAbsolutePath() + "\"  записан!");
+        logger.log(Level.INFO, "Файл \"" + fileSrc.toAbsolutePath() + "\"  записан!");
 
-        createOddNumbersFile( fileSrc, fileOdd);
+        //System.out.println("Чтение и обработка файла \"" + fileSrc.toAbsolutePath() + "\":");
+        logger.log(Level.INFO, "Чтение и обработка файла \"" + fileSrc.toAbsolutePath() + "\":");
 
-        System.out.println("Обработка файлов завершена!");
+        createOddNumbersFile( fileSrc, fileOdd);    // обработака number.txt и создание odd-number.txt
+
+        //System.out.println("Обработка файлов завершена!");
+        logger.log(Level.INFO, "Обработка файлов завершена!");
     }
 
     public static void createNumbersFile(Path fpath) {
