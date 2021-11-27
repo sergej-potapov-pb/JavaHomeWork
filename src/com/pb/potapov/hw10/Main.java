@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) throws BadSize {
 
         Random random = new Random();
-        int x;
+
         NumBox<Number> NumBoxs = new NumBox<>(5);
         NumBox<Number> NumBoxsF = new NumBox<>(7);
 
