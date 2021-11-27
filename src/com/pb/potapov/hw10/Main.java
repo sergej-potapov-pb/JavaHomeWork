@@ -10,7 +10,7 @@ public class Main {
         Random random = new Random();
         int x;
         NumBox<Number> NumBoxs = new NumBox<>(5);
-        NumBox<Number> NumBoxsF = new NumBox<>(5);
+        NumBox<Number> NumBoxsF = new NumBox<>(7);
 
         System.out.println("Формируем массив чисел int");
         // заполняем массив NumBoxs, остановка по исключению превышен размер массива
