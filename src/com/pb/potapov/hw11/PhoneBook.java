@@ -61,60 +61,120 @@ public class PhoneBook {
     }
 
     public static void editPBitem() {
-        Scanner scan = new Scanner(System.in);
-        System.out.print("Введите номер один из "+pbArray.size()+"-> ");
-        while (true) {
-            Integer i = scan.nextInt();
-            scan.nextLine();
-            if ((i == null) || (i == 0) || (i > pbArray.size())) {
-                System.out.println("Неверно задан номер записи для удаления\nНачните операцию заново.");
-                break;
-            } else {
-                System.out.println("Редактирование записи № " + i);
-                //String inName = scan.nextLine();
+        if (pbArray.isEmpty()) {
+            System.out.println("Книга пуста. Операция завершена.");
 
-                System.out.print("ФИО ( " + pbArray.get(i - 1).getName() + " ) -> ");
-                String inName = scan.nextLine();
-                if (!inName.isEmpty()) {
-                    pbArray.get(i - 1).setName(inName);
-                    System.out.println(pbArray.get(i - 1).getName());
+        } else {
+            Scanner scan = new Scanner(System.in);
+            System.out.print("Введите номер один из " + pbArray.size() + "-> ");
+            while (true) {
+                Integer i = scan.nextInt();
+                scan.nextLine();
+                if ((i == null) || (i == 0) || (i > pbArray.size())) {
+                    System.out.println("Неверно задан номер записи для удаления\nНачните операцию заново.");
+                    break;
+                } else {
+                    System.out.println("Редактирование записи № " + i + "\n ввод Enter не изменяет значение поля.");
+
+                    System.out.print("ФИО ( " + pbArray.get(i - 1).getName() + " ) -> ");
+                    String inName = scan.nextLine();
+                    if (!inName.isEmpty()) {
+                        pbArray.get(i - 1).setName(inName);
+                        System.out.println(pbArray.get(i - 1).getName());
+                    }
+
+                    System.out.print("Дата рождения ( " + pbArray.get(i - 1).getbDay() + " ) -> ");
+                    String inBDay = scan.nextLine();
+                    if (!inBDay.isEmpty()) {
+                        pbArray.get(i - 1).setbDay(inBDay);
+                        System.out.println(pbArray.get(i - 1).getbDay());
+                    }
+                    System.out.print("Адрес ( " + pbArray.get(i - 1).getAddress() + " ) -> ");
+                    String inAddress = scan.nextLine();
+                    if (!inAddress.isEmpty()) {
+                        pbArray.get(i - 1).setAddress(inAddress);
+                        System.out.println(pbArray.get(i - 1).getAddress());
+                    }
+
+                    // редактирование списка номеров
+                    System.out.println("Редактирование списка номеров абонента. Символ \"+\" - добавление нового номера.");
+                    while (true) {
+                        for (int p = 0; p < pbArray.get(i - 1).phoneNumbers.size(); p++) {
+                            System.out.println((p + 1) + ". " + pbArray.get(i - 1).phoneNumbers.get(p));
+
+                        }
+                        System.out.print("Сделайте выбор (Enter - выход) -> ");
+                        String operation = scan.nextLine();
+                        if (operation.equals("+")){
+                            // добавить новый номер
+                            System.out.print("+380xxxxxxxxx -> ");
+                            String inNumber = scan.nextLine();
+                            if (!inNumber.isEmpty()) {
+                                if (inNumber.matches("[+0-9]{5,13}")) {
+                                    pbArray.get(i - 1).phoneNumbers.add(inNumber);
+
+                                } else {
+                                    System.out.println("Ошибка формата. Повторите ввод.");
+
+                                }
+
+                            }
+
+                        } else {
+                            // редактируем запись
+                            if (operation.isEmpty()) {
+                                // выход по Enter
+                                break;
+                            } else {
+                                // если выбрали правильный номер записи
+                                if (Integer.valueOf(operation) < pbArray.get(i - 1).phoneNumbers.size()) {
+                                    Integer pp = Integer.valueOf(operation)-1; // номер редактируемой записи
+                                    System.out.print((pp + 1) + ". ( " + pbArray.get(i - 1).phoneNumbers.get(pp) + " ). \"-\" удалить эту запись -> ");
+                                    String phone = scan.nextLine();
+                                    if (phone.equals("-")) {
+                                        // удалить номер из списка
+                                        pbArray.get(i - 1).phoneNumbers.remove(pbArray.get(i - 1).phoneNumbers.get(pp));
+
+                                    } else if (!phone.isEmpty()) {
+                                        pbArray.get(i - 1).phoneNumbers.set(pp, phone);
+                                        System.out.println(pbArray.get(i - 1).phoneNumbers.get(pp));
+                                    }
+                                }
+                            }
+
+                            //break; // прерывание редактирования списка номеров абонентов
+                        }
+                    }
+
+                    break; // прерывание редактирования абонента
                 }
-
-                System.out.print("Дата рождения ( " + pbArray.get(i - 1).getbDay() + " ) -> ");
-                String inBDay = scan.nextLine();
-                if (!inBDay.isEmpty()) {
-                    pbArray.get(i - 1).setbDay(inBDay);
-                    System.out.println(pbArray.get(i - 1).getbDay());
-                }
-                System.out.print("Адрес ( " + pbArray.get(i - 1).getAddress() + " ) -> ");
-                String inAddress = scan.nextLine();
-                if (!inAddress.isEmpty()) {
-                    pbArray.get(i - 1).setAddress(inAddress);
-                    System.out.println(pbArray.get(i - 1).getAddress());
-                }
-
-
-                break;
             }
+
         }
+
 
     }
 
     public static void delPBitem() {
-        Scanner scan = new Scanner(System.in);
-        System.out.print("Введите номер -> ");
-        while (true) {
-            Integer i = scan.nextInt();
-            if ((i == null) || (i == 0) || (i > pbArray.size())) {
-                System.out.println("Неверно задан номер записи для удаления\nНачните операцию заново.");
-                break;
-            } else {
-                pbArray.remove(i - 1);
-                break;
+        if (pbArray.isEmpty()) {
+            System.out.println("Книга пуста. Операция завершена.");
+
+        } else {
+            Scanner scan = new Scanner(System.in);
+            System.out.print("Введите номер -> ");
+            while (true) {
+                Integer i = scan.nextInt();
+                if ((i == null) || (i == 0) || (i > pbArray.size())) {
+                    System.out.println("Неверно задан номер записи для удаления\nНачните операцию заново.");
+                    break;
+                } else {
+                    pbArray.remove(i - 1);
+                    break;
+                }
+
             }
 
         }
-
 
     }
 
