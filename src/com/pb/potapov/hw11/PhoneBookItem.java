@@ -10,6 +10,9 @@ public class PhoneBookItem {
     public String address;
     public Date timeStamp;
 
+    // for deserialisation !!!
+    public PhoneBookItem() {};
+
     public PhoneBookItem(String name, String bDay, String address) {
         this.name = name;
         this.bDay = bDay;

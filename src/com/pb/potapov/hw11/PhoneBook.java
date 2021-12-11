@@ -1,5 +1,12 @@
 package com.pb.potapov.hw11;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -8,38 +15,40 @@ public class PhoneBook {
 
     public static ArrayList<PhoneBookItem> pbArray = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Scanner scan = new Scanner(System.in);
 
         while (true) {
             System.out.println("\nТелефонная книга\nВыберите операцию\n");
-            System.out.println("1. Добавить элемент");
-            System.out.println("2. Удалить элемент");
-            System.out.println("3. Редактировать элемент");
-            System.out.println("4. Поиск элемента");
+            System.out.println("1. Добавить абонента");
+            System.out.println("2. Удалить абонента");
+            System.out.println("3. Редактировать абонента");
+            System.out.println("4. Поиск абонента");
             System.out.println("5. Показать всю телефонную книгу");
             System.out.println("6. Записать в файл");
             System.out.println("7. Загрузить из файла");
             System.out.println("0. Выход");
+            System.out.print("-> ");
 
             String option = scan.nextLine();
 
             switch (option) {
                 case "1":
-                    System.out.println("Добавляем элемент");
+                    System.out.println("Добавляем абонента");
                     addPBitem();
                     break;
                 case "2":
-                    System.out.println("Удаляем элемент");
+                    System.out.println("Удаляем абонента");
                     delPBitem();
                     break;
                 case "3":
-                    System.out.println("Редактируем элемент");
+                    System.out.println("Редактируем абонента");
                     editPBitem();
                     break;
                 case "4":
-                    System.out.println("Поиск элемента");
+                    System.out.println("Поиск абонента");
+                    findPBitem();
                     break;
                 case "5":
                     System.out.println("Показать всю телефонную книгу");
@@ -47,16 +56,91 @@ public class PhoneBook {
                     break;
                 case "6":
                     System.out.println("Записать в файл");
+                    savePBitem();
                     break;
                 case "7":
                     System.out.println("Загрузить из файла");
+                    readPBitem(pbArray);
                     break;
                 case "0":
                     System.out.println("Завершение работы");
                     return;
                 default:
-                    System.out.println("Wrong menu number!");
+                    System.out.println("Выбран не верный пункт меню!");
             }
+        }
+    }
+
+    public static void findPBitem() {
+        if (pbArray.isEmpty()) {
+            System.out.println("Книга пуста. Операция завершена.");
+
+        } else {
+            Scanner scan = new Scanner(System.in);
+
+            while (true) {
+
+                System.out.print("Выберите номер поля для поиска.\n1. ФИО\n2. Адрес\n3. Телефон\n0. Завершить\n-> ");
+                String option = scan.nextLine();
+
+                switch (option) {
+                    case "1":
+                        System.out.print("Поиск по полю ФИО -> ");
+                        String findFIO = scan.nextLine();
+
+                        for (PhoneBookItem abonent : pbArray) {
+                            if (abonent.getName().toLowerCase().contains(findFIO.toLowerCase())) {
+                                System.out.println(abonent.toString());
+                            }
+                        }
+                        break;
+                    case "2":
+                        System.out.print("Поиск по полю Адрес -> ");
+                        String findAdress = scan.nextLine();
+
+                        for (PhoneBookItem abonent : pbArray) {
+                            if (abonent.getAddress().toLowerCase().contains(findAdress.toLowerCase())) {
+                                System.out.println(abonent.toString());
+                            }
+                        }
+                        break;
+                    case "3":
+                        System.out.print("Поиск по полю номер телефона -> ");
+                        String findPhoneNum = scan.nextLine();
+
+                        for (PhoneBookItem abonent : pbArray) {
+                            if (abonent.phoneNumbers.contains(findPhoneNum)) {
+                                System.out.println(abonent.toString());
+                            }
+                        }
+                        break;
+
+                    case "0":
+                        return;
+
+                }
+
+            }
+        }
+
+    }
+
+    public static void readPBitem(ArrayList pbArrayList1) throws IOException {
+        ArrayList<PhoneBookItem> pbArrayList = new ArrayList<>();
+
+        ObjectMapper mapper = new ObjectMapper();
+        pbArray = mapper.readValue(new File("phonebook.json"), new TypeReference<ArrayList<PhoneBookItem>>() {});
+
+    }
+
+    public static void savePBitem() throws IOException {
+        if (pbArray.isEmpty()) {
+            System.out.println("Книга пуста. Операция завершена.");
+
+        } else {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            mapper.writeValue(new File("phonebook.json"),pbArray);
         }
     }
 
@@ -105,7 +189,7 @@ public class PhoneBook {
                         }
                         System.out.print("Сделайте выбор (Enter - выход) -> ");
                         String operation = scan.nextLine();
-                        if (operation.equals("+")){
+                        if (operation.equals("+")) {
                             // добавить новый номер
                             System.out.print("+380xxxxxxxxx -> ");
                             String inNumber = scan.nextLine();
@@ -124,11 +208,11 @@ public class PhoneBook {
                             // редактируем запись
                             if (operation.isEmpty()) {
                                 // выход по Enter
-                                break;
+                                break; // прерывание редактирования списка номеров абонентов
                             } else {
                                 // если выбрали правильный номер записи
                                 if (Integer.valueOf(operation) < pbArray.get(i - 1).phoneNumbers.size()) {
-                                    Integer pp = Integer.valueOf(operation)-1; // номер редактируемой записи
+                                    Integer pp = Integer.valueOf(operation) - 1; // номер редактируемой записи
                                     System.out.print((pp + 1) + ". ( " + pbArray.get(i - 1).phoneNumbers.get(pp) + " ). \"-\" удалить эту запись -> ");
                                     String phone = scan.nextLine();
                                     if (phone.equals("-")) {
@@ -141,8 +225,6 @@ public class PhoneBook {
                                     }
                                 }
                             }
-
-                            //break; // прерывание редактирования списка номеров абонентов
                         }
                     }
 
