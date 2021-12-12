@@ -266,7 +266,7 @@ public class PhoneBook {
         // ввод данных ФИО, день рождения, адрес
         System.out.print("Новая запись в книге\nВведите ФИО -> ");
         String inName = scan.nextLine();
-        System.out.print("Дата рождения -> ");
+        System.out.print("Дата рождения dd.mm.yyyy -> ");
         String inBDay = scan.nextLine();
         System.out.print("Адрес -> ");
         String inAddress = scan.nextLine();

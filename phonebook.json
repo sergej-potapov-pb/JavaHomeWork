@@ -34,4 +34,10 @@
   "phoneNumbers" : [ "357417" ],
   "address" : "Южная 4",
   "timeStamp" : 1639305540999
+}, {
+  "name" : "Евгений",
+  "bDay" : "07.12.2000",
+  "phoneNumbers" : [ "6731254" ],
+  "address" : "Кропоткина 14/1",
+  "timeStamp" : 1639350386224
 } ]
