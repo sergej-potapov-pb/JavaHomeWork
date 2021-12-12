@@ -7,9 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 
 public class PhoneBook {
 
@@ -129,7 +127,8 @@ public class PhoneBook {
         ArrayList<PhoneBookItem> pbArrayList = new ArrayList<>();
 
         ObjectMapper mapper = new ObjectMapper();
-        pbArray = mapper.readValue(new File("phonebook.json"), new TypeReference<ArrayList<PhoneBookItem>>() {});
+        pbArray = mapper.readValue(new File("phonebook.json"), new TypeReference<ArrayList<PhoneBookItem>>() {
+        });
 
     }
 
@@ -140,7 +139,7 @@ public class PhoneBook {
         } else {
             ObjectMapper mapper = new ObjectMapper();
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            mapper.writeValue(new File("phonebook.json"),pbArray);
+            mapper.writeValue(new File("phonebook.json"), pbArray);
         }
     }
 
@@ -312,9 +311,41 @@ public class PhoneBook {
         if (pbArray.isEmpty()) {
             System.out.println("Книга пуста.");
         } else {
+            Scanner scan = new Scanner(System.in);
+
+            System.out.print("Задайте способ сортировки.\n1. Без сортировки\n2. По ФИО\n3. По Адресу\n0. Завершить\n-> ");
+            String option = scan.nextLine();
+
+            switch (option) {
+                case "0":
+                    return;
+                case "1":
+                    System.out.println("Телефонная книга без сортировки.");
+                    break;
+                case "2":
+                    System.out.println("Телефонная книга отсортирована по полю ФИО.");
+                    pbArray.sort(new Comparator<PhoneBookItem>() {
+                        @Override
+                        public int compare(PhoneBookItem o1, PhoneBookItem o2) {
+                            return o1.getName().compareTo(o2.getName());
+                        }
+                    });
+                    break;
+
+                case "3":
+                    System.out.println("Телефонная книга отсортирована по полю Адрес.");
+                    pbArray.sort(new Comparator<PhoneBookItem>() {
+                        @Override
+                        public int compare(PhoneBookItem o1, PhoneBookItem o2) {
+                            return o1.getAddress().compareTo(o2.getAddress());
+                        }
+                    });
+                    break;
+            }
             for (int i = 0; i < pbArray.size(); i++) {
                 System.out.println((i + 1) + ". " + pbArray.get(i).toString());
             }
+
         }
     }
 }
