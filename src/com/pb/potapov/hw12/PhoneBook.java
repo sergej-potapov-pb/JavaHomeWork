@@ -23,7 +23,7 @@ public class PhoneBook {
 
 
         Scanner scan = new Scanner(System.in);
-//
+
         while (true) {
             System.out.println("\nТелефонная книга\nВыберите операцию\n");
             System.out.println("1. Добавить абонента");
@@ -140,8 +140,11 @@ public class PhoneBook {
         module.addDeserializer(LocalDate.class, new LocalDateDeserializer());
         mapper.registerModule(module);
 
-        pbArray = mapper.readValue(new File("phonebook12.json"), new TypeReference<ArrayList<PhoneBookItem>>() {
-        });
+        try {
+            pbArray = mapper.readValue(new File("phonebook12.json"), new TypeReference<ArrayList<PhoneBookItem>>() {});
+        } catch (Exception ex) {
+            System.out.println("Ошибка чтения файла: " + ex);
+        }
 
     }
 
@@ -158,7 +161,12 @@ public class PhoneBook {
             mapper.registerModule(module);
 
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            mapper.writeValue(new File("phonebook12.json"), pbArray);
+
+            try {
+                mapper.writeValue(new File("phonebook12.json"), pbArray);
+            } catch (Exception ex) {
+                System.out.println("Ошибка записи в файл: " + ex);
+            }
         }
     }
 
