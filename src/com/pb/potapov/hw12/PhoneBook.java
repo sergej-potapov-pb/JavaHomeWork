@@ -92,31 +92,28 @@ public class PhoneBook {
                     case "1":
                         System.out.print("Поиск по полю ФИО -> ");
                         String findFIO = scan.nextLine();
-
-                        for (PhoneBookItem abonent : pbArray) {
-                            if (abonent.getName().toLowerCase().contains(findFIO.toLowerCase())) {
-                                System.out.println(abonent.toString());
-                            }
+                        if (!findFIO.isEmpty()) {
+                            pbArray.stream()
+                                    .filter(el -> el.getName().toLowerCase().contains(findFIO.toLowerCase()))
+                                    .forEach(System.out::println);
                         }
                         break;
                     case "2":
                         System.out.print("Поиск по полю Адрес -> ");
                         String findAdress = scan.nextLine();
-
-                        for (PhoneBookItem abonent : pbArray) {
-                            if (abonent.getAddress().toLowerCase().contains(findAdress.toLowerCase())) {
-                                System.out.println(abonent.toString());
-                            }
+                        if (!findAdress.isEmpty()) {
+                            pbArray.stream()
+                                    .filter(el -> el.getAddress().toLowerCase().contains(findAdress.toLowerCase()))
+                                    .forEach(System.out::println);
                         }
                         break;
                     case "3":
                         System.out.print("Поиск по полю номер телефона -> ");
                         String findPhoneNum = scan.nextLine();
-
-                        for (PhoneBookItem abonent : pbArray) {
-                            if (abonent.phoneNumbers.contains(findPhoneNum)) {
-                                System.out.println(abonent.toString());
-                            }
+                        if (!findPhoneNum.isEmpty()) {
+                            pbArray.stream()
+                                    .filter(el -> el.phoneNumbers.contains(findPhoneNum))
+                                    .forEach(System.out::println);
                         }
                         break;
 
@@ -141,7 +138,8 @@ public class PhoneBook {
         mapper.registerModule(module);
 
         try {
-            pbArray = mapper.readValue(new File("phonebook12.json"), new TypeReference<ArrayList<PhoneBookItem>>() {});
+            pbArray = mapper.readValue(new File("phonebook12.json"), new TypeReference<ArrayList<PhoneBookItem>>() {
+            });
         } catch (Exception ex) {
             System.out.println("Ошибка чтения файла: " + ex);
         }
@@ -371,7 +369,7 @@ public class PhoneBook {
                             .sorted(Comparator.comparing(PhoneBookItem::getAddress))
                             .forEach(
                                     pbi ->
-                                    System.out.println((iii.getAndIncrement()) + ". " + pbi.toString())
+                                            System.out.println((iii.getAndIncrement()) + ". " + pbi.toString())
                             );
                     break;
             }
