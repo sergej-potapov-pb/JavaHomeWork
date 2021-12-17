@@ -7,13 +7,13 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PhoneBook {
 
@@ -350,29 +350,30 @@ public class PhoneBook {
                     return;
                 case "1":
                     System.out.println("Телефонная книга без сортировки.");
+                    // вывод нумерованного списка
+                    for (int i = 0; i < pbArray.size(); i++) {
+                        System.out.println((i + 1) + ". " + pbArray.get(i).toString());
+                    }
                     break;
                 case "2":
                     System.out.println("Телефонная книга отсортирована по полю ФИО.");
-                    pbArray.sort(new Comparator<PhoneBookItem>() {
-                        @Override
-                        public int compare(PhoneBookItem o1, PhoneBookItem o2) {
-                            return o1.getName().compareTo(o2.getName());
-                        }
-                    });
+                    // вывод списка без номера строки
+                    pbArray.stream()
+                            .sorted(Comparator.comparing(PhoneBookItem::getName))
+                            .forEach(System.out::println);
                     break;
 
                 case "3":
                     System.out.println("Телефонная книга отсортирована по полю Адрес.");
-                    pbArray.sort(new Comparator<PhoneBookItem>() {
-                        @Override
-                        public int compare(PhoneBookItem o1, PhoneBookItem o2) {
-                            return o1.getAddress().compareTo(o2.getAddress());
-                        }
-                    });
+                    // вывод списка с номером строки, AtomicInteger подсказка IntelliJ
+                    AtomicInteger iii = new AtomicInteger(1);
+                    pbArray.stream()
+                            .sorted(Comparator.comparing(PhoneBookItem::getAddress))
+                            .forEach(
+                                    pbi ->
+                                    System.out.println((iii.getAndIncrement()) + ". " + pbi.toString())
+                            );
                     break;
-            }
-            for (int i = 0; i < pbArray.size(); i++) {
-                System.out.println((i + 1) + ". " + pbArray.get(i).toString());
             }
 
         }
