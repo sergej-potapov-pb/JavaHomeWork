@@ -16,7 +16,7 @@ public class PhoneBookItem {
     public String address;
     public Date timeStamp;
 
-    // for deserialisation !!!
+    // for deserialization !!!
     public PhoneBookItem() {};
 
     public PhoneBookItem(String name, LocalDate bDay, String address) {
