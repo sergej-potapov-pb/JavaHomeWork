@@ -11,14 +11,13 @@ public class prodANDcons2 {
 
         public void run() {
             name = Thread.currentThread().getName();
+                try {
 
-            try {
+                    producer();
 
-                producer();
-
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             System.out.println(name + " закончил работу");
         }
 
@@ -26,9 +25,10 @@ public class prodANDcons2 {
             System.out.println(name + " стартовал");
 
             Integer counter = 0;
-            while (counter < 25) {
+            while (counter < 26) {
                 synchronized (msgQueue) {
                     System.out.println(name + " цикл " + counter);
+
                     // наполняем очередь элементами до 5-ти штук
                     if (msgQueue.size() >= 5) {
                         // если очередь переполнена, делаем паузу
@@ -39,10 +39,11 @@ public class prodANDcons2 {
                     String str = "String " + (counter++);
                     msgQueue.add(str);
                     System.out.println(name + " добавил : " + str);
+
                     msgQueue.notifyAll();
 
                     // тормозим производителя
-                    Thread.sleep(350);
+                    Thread.sleep(200);
                 }
             }
 
@@ -94,8 +95,8 @@ public class prodANDcons2 {
 
         Thread producer = new Thread(new Producer(), "Producer");
         Thread consumer = new Thread(new Consumer(), "Consumer");
-        producer.start();
         consumer.start();
+        producer.start();
 
         while (producer.isAlive()) {
             try {
