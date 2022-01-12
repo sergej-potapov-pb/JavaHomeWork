@@ -95,6 +95,12 @@ public class ClientGUI2 extends JFrame implements ActionListener, MiniChatEvent 
                 }
             }
         });
+        msgText.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sendMsg.doClick();
+            }
+        });
 
         setVisible(true);
         try {
@@ -107,13 +113,14 @@ public class ClientGUI2 extends JFrame implements ActionListener, MiniChatEvent 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String msg = msgText.getText().trim();
-        if (!msg.equals("")) {
-            mcConnection.sendMessage(msg);
-            printTextArea(msg);
-            msgText.setText("");
-
-        }
+        // sendMsg.doClick() зависает на долго
+//        String msg = msgText.getText().trim();
+//        if (!msg.equals("")) {
+//            mcConnection.sendMessage(msg);
+//            printTextArea(msg);
+//            msgText.setText("");
+//
+//        }
 
     }
 
